@@ -12,4 +12,5 @@ func AuthRoutes(app *fiber.App) {
 	api.Post("/register", handlers.Register)
 	api.Post("/login", handlers.Login)
 	api.Get("/profile", middleware.JWTProtected(),handlers.Profile)
+	api.Post("/refresh", handlers.Refresh)
 }
