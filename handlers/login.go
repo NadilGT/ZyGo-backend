@@ -25,7 +25,7 @@ func Login(c *fiber.Ctx)error{
 		return c.Status(401).JSON(fiber.Map{"error":"Invalid credentials"})
 	}
 
-	token, _ := utils.GenerateToken(user.ID.Hex());
+	token, _ := utils.GenerateToken(user.ID.Hex(), user.Name);
 
 	return c.JSON(fiber.Map{
 		"token":token,
