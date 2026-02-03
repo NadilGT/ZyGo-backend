@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"zygo-backend/config"
+	"zygo-backend/handlers"
 	"zygo-backend/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,6 +14,9 @@ import (
 
 func main() {
 	config.ConnectMongoDB()
+
+	// Initialize WebSocket Hub
+	wsHub := handlers.InitWebSocketHub()
 
 	app := fiber.New(fiber.Config{
 		AppName: "Zygo v1",
@@ -32,6 +36,7 @@ func main() {
 	})
 
 	routes.AuthRoutes(app)
+	routes.WebSocketRoutes(app, wsHub)
 
 	port := os.Getenv("PORT")
 	if port == "" {
